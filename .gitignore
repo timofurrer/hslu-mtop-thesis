@@ -1,0 +1,8 @@
+# ignore generate latex files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.pdf
+*.ps
