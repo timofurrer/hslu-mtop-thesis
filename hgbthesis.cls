@@ -496,8 +496,8 @@ acknowledged. I further declare that this or similar work has not been submitted
 
 \renewcommand{\@footitelseiten}{
 \@footitel
-\@copyrightseite
-\@erklaerungsseite
+%\@copyrightseite
+%\@erklaerungsseite
 }
 
 %------------ Automatischer Eintrag der PDF Metadaten ------------

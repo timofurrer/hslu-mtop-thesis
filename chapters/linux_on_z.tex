@@ -1,0 +1,96 @@
+\chapter{Linux on z}
+\label{cha:Linux_on_z}
+
+“Linux on z” ist ein Sammelbegriff fuer Linux Distributionen welche auf einem IBM Mainframe laufen wie beispielsweise auf den IBM z Systems und den IBM LinuxONE Servern.
+
+Im Jahr 1999 hat IBM mehrere Patches, welche hauptsaehlich aus “object code only” (OCO) Modulen bestanden, fuer den damals aktuellen Linux Kernel 2.2.13 veroeffentlicht.
+Ungefaehr ein Jahr spaeter hat IBM diese OCO Module durch Open Source Module im Kernel ersetzt und Linux on z formal als IBM Produkt vorgestellt.
+
+\section{Integrated Facility for Linux (IFL)}
+
+In einer IBM Mainframe Umgebung werden dem Kunden pro Taktzyklus von einem General Purpose Processor (CP) Nutzungsgebuehren berechnet. Um diese Nutzungskosten zu senken hat IBM drei spezielle Arten von Prozessoren entwickelt:
+zAAP fuer Java Code
+zIIP fuer DB2
+IFL um Linux laufen zu lassen
+Der IFL ist hardware-technisch nichts anderes als ein standard CP mit dem Unterschied, dass der Microcode die CP auf Linux und z/VM Instruktionen beschraenkt.
+
+\section{Hauptmerkmale von Linux on z}
+
+Das Ziel von Linux on z ist es die Vorteile eines IBM Mainframes mit einem Linux Betriebssystems zu nutzen, sodass Linux seine Charakteristiken behalten kann.
+
+Das “Look \& Feel” von Linux on z soll dem entsprechen, was sich ein erfahrener Linux User gewohnt ist. Dazu gehoeren unter anderem:
+
+Linux als ASCII Environment
+Konform zum Linux Standard Base (LSB) und zum Filesystem Hierarchy Standard (FHS)
+Kompatibel mit POSIX
+Kein eigener Linux Kernel Fork fuer Linux on z - Mainline.
+
+Die folgende Grafik zeigt, welche Linux- und GNU toolchain-Komponenten kleine Codeaenderungen zu Nutze machen:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.95\textwidth]{linux-on-z-kernel-struktur.png}
+\caption{Linux on z Kernel\cite{LinuxOnZKernel}.}
+\label{fig:LinuxOnZKernel}
+\end{figure}
+
+Wie man von der Grafik entnehmen kann, war dies der Stand des bereits fast 10 Jahre alten Linux Kernels 2.6.25.
+
+\section{IBM Mainframe Eigenschaften fuer Linux}
+
+Wie schon im letzten Kapitel angeschnitten, ist ein grosses Ziel von Linux on z die Vorteile eines IBM Mainframes fuer Linux nutzen zu koennen.
+
+IBM macht mit Linux on z folgende Angebote fuer Linux nutzbar:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.80\textwidth]{linux-on-z-mainframe-vorteile.png}
+\caption{Linux on z Mainframe Vorteile\cite{LinuxOnZMainframeVorteile}.}
+\label{fig:LinuxOnZMainframeVorteile}
+\end{figure}
+
+\section{Ziel Plattformen}
+
+Linux on z kann auf zwei verschiedene Arten auf einem Mainframe laufen: in LPARs oder als virtuelle Maschine unter z/VM. Aeltere Linux on z, welche noch fuer S/390 31-Bit Hardware entwickelt wurden, konnten auch direkt ohne Virtualisierung auf einem Mainframe laufen.
+Fuer aktuelle 64-Bit S/390x Linux on z ist dies nicht mehr moeglich.
+
+\subsection{Linux on z in LPARs}
+
+Linux on z kann auf einem oder mehreren Logical Partitions (LPARs) installiert und laufen gelassen werden. Aktuelle z13 und z14 Mainframes unterstuetzen bis zu 85 LPARs - es koennten also theoretisch 85 Linux on z Instanzen auf einem einzigen Mainframe laufen, ohne dass VMs zum Einsatz kommen.
+Es ist auch moeglich nur auf einem Teil der LPARs Linux zu installieren und auf anderen LPARs ein anderes Mainframe Betriebssystem, wie z.B. z/OS:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{linux-on-z-linux-on-lpar.png}
+\caption{Linux on z in LPARs\cite{LinuxOnZOnLPAR}.}
+\label{fig:LinuxOnZOnLPAR}
+\end{figure}
+
+\subsection{Linux on z in z/VM}
+
+Die zweite Moeglichkeit wie Linux on z auf einem Mainframe laufen gelassen werden kann, ist mit Hilfe einer Virtualisierung durch z/VM. Dabei wird Linux on z in einer full-virtualized Virtuelle Maschinen betrieben. z/VM wird in dieser Varianten selbst auch in eine LPAR installiert:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{linux-on-z-linux-on-zvm.png}
+\caption{Linux on z unter z/VM\cite{LinuxOnZOnZVM}.}
+\label{fig:LinuxOnZOnZVM}
+\end{figure}
+
+\subsection{Linux on z: LPAR oder z/VM?}
+
+Bei der Entscheidung ob Linux on z in einer LPAR oder unter z/VM installiert werden soll, spielen viele Faktoren eine Rolle:
+
+Anzahl der gewuenschten Linux Instanzen
+Kommunikation zwischen verschiedenen Instanzen
+Muessen andere Server auf dem gleichen Mainframe laufen
+Flexibilitaet -> + z/VM
+
+Es ist auch moeglich LPARs und z/VM Linux on z Instanzen auf einem Mainframe zu mischen:
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.75\textwidth]{linux-on-z-linux-on-lpar-zvm.png}
+\caption{Linux on z in LPARs und unter z/VM\cite{LinuxOnZOnLPARZVM}.}
+\label{fig:LinuxOnZOnLPARZVM}
+\end{figure}
