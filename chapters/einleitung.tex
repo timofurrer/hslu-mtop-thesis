@@ -1,30 +1,23 @@
 \chapter{Einleitung}
 \label{cha:Einleitung}
 
-\section{Was ist Linux?}
+\section{Aufgabenstellung}
 
-Unter dem Begriff Linux versteht man allgemein einen Ueberbegriff fuer freie Betriebssysteme, welche auf dem Linux Kernel basieren. Der Linux Kernel wurde erstmals im frühjahr 1992 unter der GNU GPL Lizenz fuer Intels x86 Architektur veroeffentlicht.
+Im Rahmen der \textit{Mainframe Topics} Blockwoche der Hochschule Luzern muss eine Abschlussarbeit,
+ueber eines von vielen vorgegebenen Themen, geschrieben werden.
 
-Ein konkretes Linux Betriebssystem bezeichnet man als Linux Distribution. Eine Distribution besteht aus einem Linux Kernel, GNU Tools und Libraries, zusaetzlicher Software und manchmal auch einem Window System, einem Windows Manager und einem Desktop Environment. Beispiele fuer solche Linux Distributionen sind Debian, Ubuntu, Arch Linux, openSUSE, Fedora und Linux on z.
+Das ausgewählte Thema dieser Arbeit ist \textit{Linux on z; Was unterscheidet Linux on z zu einem Linux auf x86}.
+In den nachfolgenden Kapitel dieser Arbeit gehts es darum wichtige Unterschiede zwischen einem Linux, welches auf Standard x86 Rechnern und einem Linux welches auf einem IBM Mainframe laeuft aufzuzeigen.
 
-\section{Linux Kernel Architekturen}
+Die erste Frage, die es zu klaeren gilt, ist ob es ueberhaupt noch Unterschiede gibt. Ist der Linux Kernel derselbe auf einem x86 und einem s/390x Mainframe? Oder entwickelt und liefert IBM einen \textit{geforkten}\footnote{Als Fork bezeichnet man eine abgeleitete Software, die eigenstaendig weiterentwickelt wird} Linux Kernel fuer ihre Mainframes?
 
-Der Linux Kernel ist von monolithischer aber auch modularer Natur. Dies bedeutet, dass Funktionalitaeten, welche der Kernel zwingend braucht, direkt eingebaut sind - Funktionalitaeten welche aber nur bei ganz bestimmten Hardwarekomponenten gebraucht werden, koennen ueber sogenannte Kernel Module nachgeladen werden.
-Der Linux Kernel uebernimmt Aufgaben wie beispielsweise die Speicher- und Prozessverwaltung, Interprozesskommunikation, Geraeteverwaltung und Dateisystem.
-Nachfolgende Grafik zeigt eine Uebersicht wichtiger Aufgaben des Linux Kernels im Zusammenspiel mit Hardware und den Userspace Anwendungen der Distribution:
+Weitere Fragen die in dieser Arbeit behandelt werden:
+\begin{description}
+    \item[Workload]{Wie gut ist die Workload Verteilung von Linux auf einem x86 Rechner zu einem Mainframe?}
+    \item[Konsolidierung]{Wie viele x86 Rechner mit Linux braucht es im Gegensatz zu einem Mainframe mit Linux?}
+\end{description}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=.80\textwidth]{einleitung-kernel-struktur}
-\caption{Linux Kernel Struktur\cite{KernelStruktur}.}
-\label{fig:KernelStruktur}
-\end{figure}
+Nebst diesen Fragen sollen auch zusaetzliche Funktionen aufgezeigt werden, die ein Linux on z im Gegensatz zu einem Linux on x86 bietet.
 
-\newpage
-
-Dieser modular-monolithischer Ansatz des Linux Kernels traegt nicht zuletzt zu seiner grossen Verbreitung auf unterschiedlichsten Architekturen und Plattformen bei.
-
-Wikipedia fuehrt eine Liste der Computer Architekturen, welche Linux unterstuetzt.
-Inzwischen sind dort ueber 100 Architekturen zu finden. Diese breite Abdeckung von Architekturen macht es moeglich, dass Linux in beinahe alle Bereiche von Betriebssystem Umgebungen Einzug gefunden hat. Diese reicht von exotischen Umgebungen, wie Navigations- und Haushaltsgeraeten, Digitalkameras, ueber Desktop- und Laptop Computern und Mobiltelefonen mit Android, bis hin zu Supercomputern und High Performance Computing Clusters mit Rocks Cluster Distribution.
-
-So hat Linux auch seine Daseinsberechtigung auf dem Mainframe gefunden mit Linux on z, welches auf IBMs z Systems und IBMs LinuxONE laeuft.
+Der Hauptteil fuehrt zuerst in Linux unter x86 und Linux on z ein und geht dann ueber zu den Unterschieden zwischen den beiden.
+Der Schlussteil fasst in einem Fazit die oben genannten Fragen zusammen.

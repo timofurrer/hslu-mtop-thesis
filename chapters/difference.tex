@@ -4,15 +4,16 @@
 In den folgenden Abschnitten werden einige wichtige Unterschiede zwischen einem Linux fuer x86 und Linux on z behandelt.
 
 \section{Workload Management}
+\label{sec:WorkloadManagement}
 
 Die IBM z Systems haben ein nahezu perfektes Workload Management.
 Mit Linux on z wird auf einem Mainframe von ziemlich simplen Konzepten gebrauch gemacht, um den Workload zu optimieren
-und zwischen High- und Low- Priority Workload zu unterscheiden:
+und zwischen High- und Low- Priority Workload zu unterscheiden:\cite{IBMRedBookWorkloadConcept}
 
 \begin{description}
-    \item[Identifizieren des Workloads]{Es muss identifiziert werden, was die Workloads sind die laufen.}
+    \item[Identifizieren des Workloads]{Es muss identifiziert werden, was die laufenden Workloads sind.}
     \item[Messen wie lange diese Workloads dauern]{Es muss gemessen werden, wie lange diese Workloads dauern.}
-    \item[Ausfindig machen der Uebergabe Punkten]{Wenn man herausgefunden hat, was die Workloads sind und wie lange diese dauern, kann begonnen werden diese zu optimieren.}
+    \item[Ausfindig machen der Uebergabe Punkten]{Wenn man herausgefunden hat, was die Workloads sind und wie lange diese dauern, kann begonnen werden die Last zu optimieren.}
 \end{description}
 
 \newpage
@@ -26,12 +27,13 @@ Diese Workload Management Konzepte fuehren dazu, dass mit Linux on z die volle P
 \end{figure}
 
 \section{Konsolidierung von Linux Servern}
+\label{sec:Konsolidierung}
 
 In Rechenzentren hat man oft das Ziel, die Unterhaltungskosten und Effizienz zu optimieren.
 Nicht nur was Platz und Strom angeht sondern auch die Effizienz und Auslastung der Server.
 Ein IBM Mainframe mit Linux on z ist predestiniert dafuer komplette Linux Server Farmen auf einer
 einzelnen Hardware zu konsolidieren.
-Damit es sich ueberhaupt lohnt eine solche Konsolidierung in Betracht zu ziehe, braucht man eine kritische Masse
+Damit es sich ueberhaupt lohnt eine solche Konsolidierung in Betracht zu ziehen, braucht man eine kritische Masse
 an Linux Servern. IBM illustriert diese \textit{kritische Masse} wie folgt:
 
 \begin{figure}[h!]
@@ -53,6 +55,78 @@ IBM hat laut mehreren \textit{Eagle studies} folgende Statistik aufgestellt im B
 Diese Statistik zeigt, dass umso komplexer ein Environment wird, umso mehr x86-Cores werden im Vergleich zu Linux on z-Cores gebraucht,
 damit das Environment die erforderlichen Leistungen erbringen kann.
 
-Dies ist vorallem auf die gute Leistung des Workload Managements zurueckzufuehren.
+Dies ist vorallem auf die gute Leistung des Workload Managements zurueckzufuehren.\footnote{Siehe Abschnitt \ref{sec:WorkloadManagement}}
 
 \section{Kommunikation ueber HiperSockets}
+\label{sec:HiperSockets}
+
+Wenn man Applikationssysteme mit mehreren verschiedenen physikalisch getrennten x86 Servern hat, so wird die Kommunikation zwischen diesen meist ueber Switches mit TCP/IP geroutet. Das Problem dabei ist die Latenzzeit dieser Netzwerkverbindung.
+Vorallem bei Systemen bestehend aus Microservices\footnote{man hat also viele kleinere Systeme welche kleine Teilaufgaben einer groesseren Aufgabe uebernehmen} kann die Latenzzeit zwischen den Services einen beachtlichen Anteil der gesamt Rechenzeit ausmachen.
+
+Die IBM Mainframes bieten diesen Latenzzeiten mit sogenannten HiperSockets Abhilfe.\cite{HiperSocketsWiki}
+HiperSockets bieten \textit{high-speed} \textit{in-memory} TCP/IP Kommunikationskanaele zwischen verschiedenen LPARs an. IBM unterstuetzt HiperSockets fuer z/OS, z/VM und auch fuer Linux on z.
+
+HiperSockets sind ein starkes Argument fuer die Konsolidierung von x86 Servern auf ein Mainframe. Nicht nur fallen die Kosten fuer Switches und Kabel nicht sondern es kommt auch noch ein riesen Performance-Vorteil hinzu.
+
+\subsection{HiperSockets als Address-Family}
+
+Der Linux Kernel unterstuetzt mit der \textit{AF\_IUCV} Address Family eine direkte Kommunikation ueber HiperSockets zwischen Applikationen laufend auf verschiedenen Linux on z Instanzen.
+Fuer Linux on z in LPARs werden folgende Funktionalitaeten unterstuetzt:
+\begin{itemize}
+    \item{Mehrere eingehenden \textit{echte} HiperSocket Verbindungen}
+    \item{Mehrere ausgehende \textit{echte} HiperSocket Verbindungen}
+\end{itemize}
+Wird Linux on z unter z/VM betrieben kommen IUCV-Verbinunden\footnote{IUCV steht fuer Inter-User Communication Vehicle und wird gebraucht, damit mehrere z/VM und Applikationen unter z/VM miteinander kommunizieren koennen} und keine \textit{echte} HiperSockets zum Einsatz.
+
+Der \textit{AF\_IUCV} Support kann im Linux Kernel ueber die \textit{CONFIG\_IUCV} und \textit{CONFIG\_AFIUCV} Optionen aktiviert werden.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.80\textwidth]{afiucv_menuconfig}
+\caption{Linux Kernel \textit{menuconfig} AF\textunderscore IUCV Optionen}
+\label{fig:AFIUCVMENUCONFIG}
+\end{figure}
+
+Wie bei fast allen Modulen kann der \textit{AF\_IUCV} entweder direkt in den Kernel einkompiliert oder als dynamisches Modul nachgeladen werden.
+Das nachladbare Modul heisst \textit{af\_iucv}:\cite{IBMAFIUCV}
+
+\begin{lstlisting}
+# modprobe af_iucv
+\end{lstlisting}
+
+\section{Call Home - Problem Reporting}
+
+IBM bietet ein Linux Kernel Modul an um, im Falle einer Kernel Panic\footnote{Ein Crash im Kernelspace}, direkt Problem Reports an RETAIN -- ein Datenbank System um die IBM Fieldagents und Kunden zu unterstuetzen -- zu senden.
+
+Um diese automatischen Problem Reports zu nutzen, muessen folgende Anforderungen erfuellt sein:\cite{IBMCallHome}
+\begin{itemize}
+    \item{Linux on z muss direkt in einer LPAR installiert sein}
+    \item{Der Linux Kernel muss das \textit{SCLP\_ASYNC} device unterstuetzen}
+    \item{Der Kunde braucht ein \textit{Hardware support agreement} mit IBM um die Reports an RETAIN schicken zu duerfen}
+\end{itemize}
+
+\subsection{Kernel Konfiguration}
+
+Damit die \textit{Call Home} Funktionalitaet auf Linux Kernel Ebene funktioniert muss die \textit{CONFIG\_SCLP\_ASYNC} Option im Kernel aktiviert sein.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.80\textwidth]{sclp_async_menuconfig}
+\caption{Linux Kernel \textit{menuconfig} SCLP\textunderscore ASYNC Optionen}
+\label{fig:SCLPASYNC}
+\end{figure}
+
+\textit{SCLP\_ASYNC} funktioniert sowohl direkt im Kernel als auch als nachladbares Kernel Module \textit{sclp\_async}:
+
+\begin{lstlisting}
+# modprobe sclp_async
+\end{lstlisting}
+
+Sobald das Kernel Modul aktiv ist, kann die \textit{Call Home} Funktion uebers \textit{procfs} eingeschalten oder wieder ausgeschalten werden:\cite{IBMCallHome}
+
+\begin{lstlisting}
+# # Enable call home support
+# echo 1 > /proc/sys/kernel/callhome
+# # Disable call home support
+# echo 0 > /rpco/sys/kernel/callhome
+\end{lstlisting}
