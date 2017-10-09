@@ -1,12 +1,11 @@
 \chapter{Fazit}
 \label{cha:Schluss}
 
-Auch wenn diese Arbeit das Aufarbeiten von nur wenigen Unterschieden zwischen Linux on x86 und Linux on z zugelassen hat, so haben die vorgaengigen Kapitel gezeigt, dass es durchaus Sinn machen kann groessere Linux x86 Server Infrastrukturen auf ein Mainframe mit Linux on z zu konsolidieren.
-Ich denke die Hauptgruende dafuer sind:
+Auch wenn diese Arbeit das Aufarbeiten von nur wenigen Unterschieden zwischen Linux on x86 und Linux on z zugelassen hat, so haben die vorgängigen Kapitel gezeigt, dass es durchaus Sinn machen kann grössere Linux x86 Server Infrastrukturen auf ein Mainframe mit Linux on z zu konsolidieren.
+Ich denke die Hauptgründe dafür sind:
 \begin{description}
-    \item[Eine Hardware]{Eine Mainframe Hardware ist in der Lage hunderte Linux on z Instanzen laufen zu lassen. Der Footprint eines IBM Mainframes erspart Platz, Strom und im Endeffekt dann vorallem auch Geld.\footnote{Siehe Abschnitt \ref{sec:Konsolidierung}}}
-    \item[Workload Management]{Da die Linux on z Instanzen auf einer einzigen grossen Hardware laufen, hat ein Mainframe die Moeglichkeit den Workload perfekt auf die zur Verfuegung stehenden Ressourcen zu verteilen.\footnote{Siehe Abschnitt \ref{sec:WorkloadManagement}}}
-    \item[Exterm performante Kommunikation]{Mit HiperSockets bietet Linux on z eine exterm performante \textit{in-memory} TCP/IP Kommunikationsschnittstelle\footnote{Siehe Abschnitt \ref{sec:HiperSockets}}}
+    \item[Eine Hardware]{Eine Mainframe Hardware ist in der Lage hunderte Linux on z Instanzen laufen zu lassen. Der Footprint eines IBM Mainframes erspart Platz, Strom und im Endeffekt dann vor allem auch Geld.\footnote{Siehe Abschnitt \ref{sec:Konsolidierung}}}
+    \item[Workload Management]{Da die Linux on z Instanzen auf einer einzigen grossen Hardware laufen, hat ein Mainframe die Möglichkeit den Workload perfekt auf die zur Verfügung stehenden Ressourcen zu verteilen.\footnote{Siehe Abschnitt \ref{sec:WorkloadManagement}}}
+    \item[Exterm performante Kommunikation]{Mit HiperSockets bietet Linux on z eine extrem performante \textit{in-memory} TCP/IP Kommunikationsschnittstelle\footnote{Siehe Abschnitt \ref{sec:HiperSockets}}}
     \item[Call Home]{Die Call Home Funktion im Linux Kernel vereinfacht das Raportieren von Kernel Panics an IBM.}
 \end{description}
-
