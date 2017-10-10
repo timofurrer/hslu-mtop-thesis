@@ -30,3 +30,25 @@ Wikipedia führt eine Liste der Computer Architekturen, welche Linux unterstütz
 Inzwischen sind dort über 100 Architekturen zu finden. Diese breite Abdeckung von Architekturen macht es möglich, dass Linux in beinahe alle Bereiche von Betriebssystem Umgebungen Einzug gefunden hat. Diese reicht von exotischen Umgebungen, wie Navigations- und Haushaltsgeräten, Digitalkameras, über Desktop- und Laptop Computern und Mobiltelefonen mit Android, bis hin zu Supercomputern und High Performance Computing Clusters mit Rocks Cluster Distribution.
 
 So hat Linux auch seine Daseinsberechtigung auf dem Mainframe gefunden mit Linux on z, welches auf IBMs z Systems und IBMs LinuxONE läuft.
+
+\section{Linux unter x86}
+\label{sec:LinuxOnx86}
+
+Die x86 Architektur war die erste unterstütze Architektur im Linux Kernel.
+Dies aus dem einfachen Grund, weil Linus Torvalds, Autor und Maintainer von Linux, den Linux Kernel für seinen persönlichen Rechner entwickelt hat,
+welcher eine Intel x86 CPU hatte.
+
+\subsection{x86 Architektur im Rechenzentrum}
+
+Seit Jahrzehnten halten sich x86 CPUs wacker im Kampf um die Marktanteile auf dem Server Markt.
+Obwohl mit ARM eine eigentlich gute und vor allem effiziente Alternative existiert, machen die x86 Server immer noch einen Anzeil ueber 90\% aus.\cite{ARMServer}\cite{CommonWhyx86}
+
+Linus Torvalds führt dies nicht auf die Architektur selbst zurück, sondern viel mehr auf das Ecosystem, welches sich um eine Architektur bildet:
+
+\begin{quote}
+"What matters is all the infrastructure around the instruction set, and x86 has all that infrastructure.
+Being compatible just wasn’t as big of a deal for the ARM ecosystem as it has been traditionally for the x86 ecosystem."\cite{TorvalsQuote}
+\end{quote}
+
+Auch IBM versucht mit \textit{POWER8} und den aktuellen \textit{POWER9} Architekturen mehr Marktanteil im Serverbereich zu gewinnen.\cite{CommonWhyx86}
+Neben IBMs eigenen Betriebssystemen unterstützt auch Linux\footnote{Seit Linux Kernel 4.6. Siehe \url{https://www.phoronix.com/scan.php?page=news_item&px=Linux-4.6-POWER9-POWER}} die POWER9 Architektur.

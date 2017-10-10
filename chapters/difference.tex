@@ -130,3 +130,25 @@ Sobald das Kernel Modul aktiv ist, kann die \textit{Call Home} Funktion übers \
 # # Disable call home support
 # echo 0 > /rpco/sys/kernel/callhome
 \end{lstlisting}
+
+\section{Ecosystem}
+
+Wie schon im Linux unter x86 Abschnitt\footnote{Siehe Abschnitt \ref{sec:LinuxOnx86}} kurz erwähnt wurde, hat die x86 Architektur, über die Jahre hinweg, ein ungeschlagenes Ecosystem aufbauen können.
+Damit sind nicht nur die vielen Hersteller von x86 Architekturen gemeint, sondern auch die vielen Distributionen und Applikationen die für x86 veröffentlicht werden.\cite{x86Manufacturer}
+
+Für eine Firma können die Kosten und der Aufwand, ein grosses business-kritisches System von x86 auf s390x zu portieren, schlicht und einfach zu gross sein.
+
+\subsection{x86 Applikation unter Linux on z}
+
+Dem will IBM mit \textit{x86 proxy processes} Abhilfe schaffen.
+Diese Proxy Prozesse laufen, wie normale Prozesse, auf einem Linux on z und repräsentieren eine x86 Applikation inklusive deren Lebenszyklus und Ressourcen.
+Diese x86 Applikation und deren eigentliche Prozesse laufen dabei nicht direkt auf dem selben Linux on z, sondern weiterhin auf einem normalen x86 Server:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.80\textwidth]{difference-integrated}
+\caption{x86 Applikation integriert in Linux on z\cite{x86OnLinuxOnZ}.}
+\label{fig:LinuxOnZ}
+\end{figure}
+
+Die x86 Applikation kann damit nahtlos in ein Linux on z fast integriert werden und so die Konsolidierung einer Serverumgebung schrittweise ermöglichen.\cite{x86OnLinuxOnZ}
