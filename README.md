@@ -1,7 +1,6 @@
-﻿# LaTeX template for thesis
+﻿# HSLU MTOP Essay
 
-This is my preferred template to use for essays and papers.
-It's based on the [Hagenberg Package](https://github.com/Digital-Media/HagenbergThesis).
+Essay fuer die *Mainframe Topics* Blockwoche der HSLU.
 
 ## Build
 
